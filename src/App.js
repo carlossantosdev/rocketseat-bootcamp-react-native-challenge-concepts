@@ -20,21 +20,18 @@ export default function App() {
   }, []);
 
   function handleLikeRepository(id) {
-    // Implement "Like Repository" functionality
     api.post(`/repositories/${id}/like`);
-    let oldRepositories = repositories;
 
     const repositoryIndex = repositories.findIndex(
       (repository) => repository.id === id,
     );
 
-    if (repositoryIndex) {
-      oldRepositories[repositoryIndex].likes += 1;
-    }
+    let newRepository = repositories[repositoryIndex];
+    newRepository.likes += 1;
 
-    const newRepositories = oldRepositories;
+    repositories.splice(repositoryIndex, 1);
 
-    setRepositories(newRepositories);
+    setRepositories([...repositories, newRepository]);
   }
 
   return (
@@ -45,6 +42,7 @@ export default function App() {
           style={styles.repositoryList}
           data={repositories}
           keyExtractor={(repository) => repository.id}
+          extraData={this.state}
           renderItem={({item: repository}) => (
             <View style={styles.repositoryContainer} key={repository.id}>
               <Text style={styles.repository}>{repository.title}</Text>
