@@ -17,11 +17,11 @@ export default function App() {
 
   useEffect(() => {
     api.get('repositories').then((response) => setRepositories(response.data));
-  }, [repositories]);
+  }, []);
 
-  async function handleLikeRepository(id) {
+  function handleLikeRepository(id) {
     // Implement "Like Repository" functionality
-    await api.post(`/repositories/${id}/like`);
+    api.post(`/repositories/${id}/like`);
     let oldRepositories = repositories;
 
     const repositoryIndex = repositories.findIndex(

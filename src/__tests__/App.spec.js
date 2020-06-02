@@ -18,12 +18,6 @@ const actWait = async (amount = 0) => {
   });
 };
 
-beforeEach(() => {
-  jest.useFakeTimers();
-});
-
-// jest.setTimeout(30000);
-
 const repositoryId = 'd6e43105-a559-45b7-8fd7-53416b415741';
 
 apiMock.onGet('repositories').reply(200, [
